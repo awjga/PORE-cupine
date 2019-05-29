@@ -1,18 +1,18 @@
 # PORE-cupine
-###First version of PORE-cupine. Detecting SHAPE modification using direct RNA sequencing
+### First version of PORE-cupine. Detecting SHAPE modification using direct RNA sequencing
 
 The codes in the two folders are similar.
 For single gene is suitable for running one gene at a time.
 For transcriptome is suitable for running multiple genes.
 Both will yield the same results.
 
-###Programs needed to run the analysis:
+### Programs needed to run the analysis:
 Albacore (Oxford nanopore) 
 Nanopolish (https://github.com/jts/nanopolish) a modified copy that removes the outliers from fast5 is included here 
 Graphmap (https://github.com/isovic/graphmap)
 R (https://www.r-project.org/)
 
-###R packages required:
+### R packages required:
 dplyr
 e1071
 data.table
@@ -22,9 +22,9 @@ optparse
 Rcpp
 
 
-###Steps:
+### Steps:
 
-###To basecall raw fast5, output for both fast5 and fastq is required 
+### To basecall raw fast5, output for both fast5 and fastq is required 
 read_fast5_basecaller.py -i "location of fast5" -s "output_location" -r -k SQK-RNA001 -f FLO-MIN106 -o fast5,fastq --disable_filtering
 
 ### To map
