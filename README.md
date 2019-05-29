@@ -44,17 +44,17 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 ~/Read_events.R -f gene.event -o combined.RData
 
 ### To generate reacitvity
-~/SVM.R -m "modified_gene.RData" -u "unmodified_gene.RData" -o "output file names.csv"
+./SVM.R -m "modified_gene.RData" -u "unmodified_gene.RData" -o "output file names.csv"
 
 ## For transcriptome
 
 ### split events to individual transcript
-~/split_events.sh "folder to store tmp files" gene.event
+./split_events.sh "folder to store tmp files" gene.event
 
 ### Optional step run if needed to combine tmp files from multiple flowcells
 
 ### To combine mulitple events from same position and strands
-~/loop_for_Read_files.sh "number of parts" "input folder" "output folder"
+./loop_for_Read_files.sh "number of parts" "input folder" "output folder"
 
 ### To generate reactivity profile for mulitple transcript
 ./SVM_multi.R -s "number of parts" "RData folder containing modified samples" "RData folder containing unmodified samples" "Output folder"
