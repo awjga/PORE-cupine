@@ -1,25 +1,25 @@
 # PORE-cupine
 ### First version of PORE-cupine. Detecting SHAPE modification using direct RNA sequencing
 
-The codes in the two folders are similar.
-For single gene is suitable for running one gene at a time.
-For transcriptome is suitable for running multiple genes.
-Both will yield the same results.
+The codes in the two folders are similar.  
+For single gene is suitable for running one gene at a time.  
+For transcriptome is suitable for running multiple genes.  
+Both will yield the same results.  
 
 ### Programs needed to run the analysis:
-Albacore (Oxford nanopore) 
-Nanopolish (https://github.com/jts/nanopolish) a modified copy that removes the outliers from fast5 is included here 
-Graphmap (https://github.com/isovic/graphmap)
-R (https://www.r-project.org/)
+Albacore (Oxford nanopore)  
+Nanopolish (https://github.com/jts/nanopolish) a modified copy that removes the outliers from fast5 is included here  
+Graphmap (https://github.com/isovic/graphmap)  
+R (https://www.r-project.org/)  
 
 ### R packages required:
-dplyr
-e1071
-data.table
-ggplot2
-ggpubr
-optparse
-Rcpp
+dplyr  
+e1071  
+data.table  
+ggplot2  
+ggpubr  
+optparse  
+Rcpp  
 
 
 ### Steps:
