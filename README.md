@@ -45,3 +45,7 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 
 ### To generate reacitvity
 ~/SVM.R -m "modified_gene.RData" -u "unmodified_gene.RData" -o "output file names.csv"
+
+## For transcriptome
+
+
