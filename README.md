@@ -1,5 +1,5 @@
 # PORE-cupine
-### First version of PORE-cupine. Detecting SHAPE modification using direct RNA sequencing
+#### First version of PORE-cupine. Detecting SHAPE modification using direct RNA sequencing
 
 The codes in the two folders are similar.  
 For single gene is suitable for running one gene at a time.  
@@ -22,7 +22,7 @@ optparse
 Rcpp  
 
 
-### Steps:
+#### Steps:
 
 ### To basecall raw fast5, output for both fast5 and fastq is required 
 read_fast5_basecaller.py -i "location of fast5" -s "output_location" -r -k SQK-RNA001 -f FLO-MIN106 -o fast5,fastq --disable_filtering
@@ -39,7 +39,7 @@ nanopolish index -d "location of basecalled fast5" converted.fastq
 ### scaling of events current to the model current is required
 nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "reference.fa" --print-read-names --scale-events > gene.event
 
-### For single genes
+#### For single genes
 ### To combine mulitple events from same position and strands
 ~/Read_events.R -f gene.event -o combined.RData
 
