@@ -7,15 +7,19 @@ suppressMessages(library(e1071))
 args = commandArgs(trailingOnly=TRUE)
 option_list = list(
   make_option(c("-u", "--unmod"), type="character", default=NULL,
-              help="Event file name from Nanopolish", metavar="character"),
+              help="unmodified RData", metavar="character"),
   make_option(c("-m", "--mod"), type="character", default=NULL,
-              help="Number of cores allocated", metavar="character"),
+              help="Modified RData", metavar="character"),
 make_option(c("-o", "--output"), type="character", default=NULL,
-              help="Folder name", metavar="character"))
+              help="output name", metavar="character"))
 
 opt_parser = OptionParser(option_list=option_list)
 opt = parse_args(opt_parser)
 
+if (is.null(opt$unmod) | is.null(opt$output)|is.null(opt$mod) ){
+  print_help(opt_parser)
+  stop("Input files and output name must be supplied.", call.=FALSE)
+}
 
 mod.name=load(paste(opt$mod,sep=""))
 dat.mod2=get(mod.name)
@@ -23,7 +27,7 @@ rm(list=ls(pattern="dat.f"))
 dat.mod2[dat.mod2[,"event_stdv"]==0,"event_stdv"]=0.01
 
 if(NROW(unique(dat.mod2$read_name))<10)
-next()
+	next()
 
 unmod.name=load(opt$unmod)
 dat.unmod_t2=get(unmod.name)
@@ -51,54 +55,53 @@ dat.mod=dat.mod2 %>% group_by(read_name)%>%
 
   for(b in pos_m)
   {
-tmp1x= dat.mod%>%
+  ### loading of positions
+	tmp1x= dat.mod%>%
       filter(position == b) %>%
       select(read_name,event_level_mean,event_stdv,count,reference_kmer)%>% 
       mutate(event_level_mean=(event_level_mean),event_stdv=log(event_stdv),count=log(count)) 
 
-kmer=first(tmp1x$reference_kmer)
+	kmer=first(tmp1x$reference_kmer)	
 
-tmpun_t= dat.unmod_t %>%
+	tmpun_t= dat.unmod_t %>%
       ungroup() %>%
       filter(position == b) %>%
       select(event_level_mean,event_stdv,count) %>%
       mutate(event_level_mean=(event_level_mean),event_stdv=log(event_stdv),count=log(count))
 
 
-if(NROW(tmpun_t)<5)
-next()
+	if(NROW(tmpun_t)<5)
+		next()
 
-svm.model=svm(tmpun_t[1:2],y=NULL,
-                   type='one-classification',
-                   nu=0.0005,
-                   gamma=0.003333,
-                   kernel="radial")
+    ### training of unmodified 
+	svm.model=svm(tmpun_t[1:2],y=NULL,
+			   type='one-classification',
+			   nu=0.0005,
+			   gamma=0.003333,
+			   kernel="radial")
 
-    svm.predtest=predict(svm.model,(tmp1x[2:3]))
+    ### prediction of modifications
+	svm.predtest=predict(svm.model,(tmp1x[2:3]))
     
-
     mod_mat[rownames(mod_mat) %in% unlist(tmp1x[,"read_name"]),(b+1)]=0
     mod_mat[rownames(mod_mat) %in% unlist(tmp1x[!svm.predtest,"read_name"]),(b+1)]=1
     unmod_mat[(b+1),]=NROW(tmpun_t)
     nt[(b+1),]=substr(kmer,3,3)
-
 }
-  tmp_mat=mod_mat
-  mode(tmp_mat)="numeric"
-  mod_strands=as_tibble(apply(tmp_mat, 2, function (x) sum(!is.na(x))))
- 
 
+tmp_mat=mod_mat
+mode(tmp_mat)="numeric"
+mod_strands=as_tibble(apply(tmp_mat, 2, function (x) sum(!is.na(x))))
 
- gene_name=unique(dat.mod$contig)
+gene_name=unique(dat.mod$contig) 
 
-  dat.results=as_tibble(colSums(tmp_mat,na.rm=T))
-  dat.percentage=as_tibble(dat.results/mod_strands)
-  gene_mat=matrix(gene_name,ncol=1,nrow=(pos+1)) 
+dat.results=as_tibble(colSums(tmp_mat,na.rm=T))
+dat.percentage=as_tibble(dat.results/mod_strands)
+gene_mat=matrix(gene_name,ncol=1,nrow=(pos+1)) 
 
- dat.output=bind_cols(as_tibble(gene_mat),as_tibble(3:(pos+3)),as_tibble(nt),dat.percentage,dat.results,mod_strands,as_tibble(unmod_mat))
+dat.output=bind_cols(as_tibble(gene_mat),as_tibble(3:(pos+3)),as_tibble(nt),dat.percentage,dat.results,mod_strands,as_tibble(unmod_mat))
 
 colnames(dat.output)=c("Gene","Position","NT","Mod_percentage","Mod_number","Mod_strands","Training_strands")
-
 
 write.table(dat.output,paste("Output_",gene_name,opt$output,".csv",sep=""),sep = ",",row.names=FALSE)
 
