@@ -7,8 +7,8 @@ For transcriptome is suitable for running multiple genes.
 Both will yield the same results.
 
 #Programs needed to run the analysis:
-Albacore (Oxford nanopore) \t
-Nanopolish (https://github.com/jts/nanopolish) a modified copy that removes the outliers from fast5 is included here \t
+Albacore (Oxford nanopore) 
+Nanopolish (https://github.com/jts/nanopolish) a modified copy that removes the outliers from fast5 is included here 
 Graphmap (https://github.com/isovic/graphmap)
 R (https://www.r-project.org/)
 
