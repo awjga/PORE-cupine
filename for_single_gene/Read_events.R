@@ -27,7 +27,7 @@ suppressMessages(library(data.table))
 Rcpp::sourceCpp("./for_r.cpp")
 
 #loading of event files
-dat= fread(paste("./",opt$file,sep=""))
+dat= fread(paste(opt$file))
 print("Done loading")
 mod=opt$out
 
