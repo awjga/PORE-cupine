@@ -52,6 +52,8 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 ./split_events.sh "folder to store tmp files" gene.event
 
 ### Optional step run if needed to combine tmp files from multiple flowcells
+#### combined tmp files will be found in folder named combined
+./combine.sh 
 
 ### To combine mulitple events from same position and strands
 ./loop_for_Read_files.sh "number of parts" "input folder" "output folder"
