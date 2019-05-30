@@ -1,7 +1,18 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-		
+// [[Rcpp::export]]
+double sd_c(double x_m, double x_s, double x_n,double y_m, double y_s, int y_n)
+{
+	double al, var, tmp_sd;
+            al=x_n+y_n;
+
+            tmp_sd=al*((x_n-1)*(x_s*x_s)+(y_n-1)*(y_s*y_s))+y_n*x_n*(x_m-y_m)*(x_m-y_m);
+            var=tmp_sd/(al*(al-1));
+            
+            return(sqrt(var));
+}
+
 // [[Rcpp::export]]
 double sd_combine(NumericVector sd,NumericVector mean, NumericVector freq)
 {
@@ -21,7 +32,7 @@ double sd_combine(NumericVector sd,NumericVector mean, NumericVector freq)
 		sy=sd[i];
 		ny=freq[i];
 
-		sx=sd_combine(mx,sx,nx,my,sy,ny);
+		sx=sd_c(mx,sx,nx,my,sy,ny);
 		nx=nx+ny;
 		mx=(mx*nx+my*ny)/(nx+ny);
 	}
