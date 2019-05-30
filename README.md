@@ -28,11 +28,11 @@ Rcpp
 read_fast5_basecaller.py -i "location of fast5" -s "output_location" -r -k SQK-RNA001 -f FLO-MIN106 -o fast5,fastq --disable_filtering
 
 ### To map
-cat fastq* | sed 's/U/T/g' > coverted.fastq
-graphmap align -r "reference.fa" -d coverted.fastq -o gene.sam  --double-index
-samtools view -bT "reference.fa" -F 16 gene.sam > gene.bam
-samtools sort gene.bam > gene.s.bam
-samtools index gene.s.bam
+cat fastq* | sed 's/U/T/g' > coverted.fastq  
+graphmap align -r "reference.fa" -d coverted.fastq -o gene.sam  --double-index  
+samtools view -bT "reference.fa" -F 16 gene.sam > gene.bam  
+samtools sort gene.bam > gene.s.bam  
+samtools index gene.s.bam  
 
 ### aligning of raw signal with nanopolish
 nanopolish index -d "location of basecalled fast5" converted.fastq
