@@ -1,9 +1,5 @@
 #!/usr/bin/env Rscript-3.4.1
-suppressMessages(library(dplyr))
-suppressMessages(library(Rcpp))
-suppressMessages(library(pracma))
 suppressMessages(library(optparse))
-suppressMessages(library(data.table))
 
 #for command line parsing
 args = commandArgs(trailingOnly=TRUE)
@@ -21,6 +17,11 @@ if (is.null(opt$file) | is.null(opt$out)){
   print_help(opt_parser)
   stop("Input file and output names must be supplied.", call.=FALSE)
 }
+
+suppressMessages(library(dplyr))
+suppressMessages(library(Rcpp))
+suppressMessages(library(pracma))
+suppressMessages(library(data.table))
 
 #loading c++ script
 Rcpp::sourceCpp("./for_r.cpp")
