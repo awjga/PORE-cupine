@@ -1,8 +1,6 @@
 #!/usr/bin/env Rscript-3.4.1
 
 suppressMessages(library(optparse))
-suppressMessages(library(dplyr))
-suppressMessages(library(e1071))
 
 args = commandArgs(trailingOnly=TRUE)
 option_list = list(
@@ -20,6 +18,9 @@ if (is.null(opt$unmod) | is.null(opt$output)|is.null(opt$mod) ){
   print_help(opt_parser)
   stop("Input files and output name must be supplied.", call.=FALSE)
 }
+
+suppressMessages(library(dplyr))
+suppressMessages(library(e1071))
 
 mod.name=load(paste(opt$mod,sep=""))
 dat.mod2=get(mod.name)
