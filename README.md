@@ -60,5 +60,5 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 ./SVM_multi.R -s "number of parts" "RData folder containing modified samples" "RData folder containing unmodified samples" "Output folder"
 
 # Acknowledgments
-Li Chenhao for his help in getting me started.  
-Shen Yang for his code for aligning transcipt positions to genomic position
+Li Chenhao for his help in getting me started.  (https://github.com/lch14forever)  
+Shen Yang for his code for aligning transcipt positions to genomic position. (https://github.com/shenyang1981)
