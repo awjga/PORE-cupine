@@ -61,4 +61,4 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 
 # Acknowledgments
 Li Chenhao for his help in getting me started.  (https://github.com/lch14forever)  
-Shen Yang for his code for aligning transcipt positions to genomic position. (https://github.com/shenyang1981)
+Shen Yang for his code for aligning transcipt positions to genomic position and for the TRipseq anaylsis (https://github.com/shenyang1981)
