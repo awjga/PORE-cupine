@@ -44,7 +44,7 @@ dat.com= dat %>%
 #saving the results
 assign(paste("dat.f.combined.",mod, sep=""),dat.com)
 tmp2=(paste("dat.f.combined.",mod, sep=""))
-save(list=(tmp2),file=paste("./dat.f.combined.",".",mod,".RData", sep=""))
+save(list=(tmp2),file=paste("./dat.f.combined.",mod,".RData", sep=""))
 rm(list=ls(pattern="dat.f"))
 
 print("script ran successfully")
