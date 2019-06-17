@@ -1,0 +1,27 @@
+This is the changes to parameters provided from Oxford Nanopore, that was used for our methods.
+The changes allows Minknow sequencing to have a higher treshold for error and it may have a small detrimental effect on the quality of non-modified runs, as the parameters are no longer optimised for non-modified.
+
+
+
+C:\Program Files\OxfordNanopore\MinKNOW\ont-python\Lib\site-packages\bream\core\bream_3\config\files\pore_models\minion_RNA_sequencing.yml
+
+Change line 18 
+from:
+  minimum_delta_mean: 80.0
+
+to:
+  minimum_delta_mean: 120.0
+
+And further changing of parameters, which should prevent erroneous flicking of reads:
+
+The new classifications in 1.13 look like they will do a better job, but still misclassify some areas of strands where the local range goes as high as 80pA. Therefore I’d recommend changing the upper limit for local range in the 1.13 read classifications.
+
+In MinKNOW 1.13:  C:\Program Files\OxfordNanopore\MinKNOW\ont-python\Lib\site-packages\bream\core\bream_3\config\files\read_classification\minion_RNA_sequencing.yml
+
+Change line 12
+From:
+  - strand      =       (local_range,gt,25)&(local_range,lt,60)&(local_median,gt,60)&(local_median,lt,115)&(local_median_sd,gt,1)&(local_median_sd,lt,4)&(duration,gt,2)
+
+To:
+  - strand      =       (local_range,gt,25)&(local_range,lt,85)&(local_median,gt,60)&(local_median,lt,115)&(local_median_sd,gt,1)&(local_median_sd,lt,4)&(duration,gt,2)
+
