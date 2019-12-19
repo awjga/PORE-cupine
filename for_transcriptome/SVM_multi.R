@@ -63,10 +63,10 @@ for (i in tmpstart:tmp_end){
 
 	t=dat.unmod_t %>% group_by(read_name) %>% summarise(n=n())
 	dat.unmod_t=dat.unmod_t %>% group_by(read_name)%>%
-		filter(n()>=(0.75*quantile(t$n,0.75)))
+		filter(n()>=(quantile(t$n,0.5)))
 
 	dat.mod=dat.mod %>% group_by(read_name)%>%
-		filter(n()>=(0.75*quantile(t$n,0.75)))
+		filter(n()>=(quantile(t$n,0.5)))
 
 	gene_name=unique(dat.mod$contig)
 
@@ -102,8 +102,8 @@ for (i in tmpstart:tmp_end){
 
 		svm.model=svm(tmpun_t[1:2],y=NULL,
 			type='one-classification',
-			nu=0.0005,
-			gamma=0.003333,
+			nu=9e-4,
+			gamma=0.04,
 			kernel="radial")
 
 		 svm.predtest=predict(svm.model,(tmp1x[2:3]))
