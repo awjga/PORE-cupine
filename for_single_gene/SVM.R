@@ -38,10 +38,10 @@ dat.unmod_t2[dat.unmod_t2[,"event_stdv"]==0,"event_stdv"]=0.01
 
 t=dat.unmod_t2 %>% group_by(read_name) %>% summarise(n=n())
 dat.unmod_t=dat.unmod_t2 %>% group_by(read_name)%>%
-  filter(n()>=(0.75*quantile(t$n,0.75)))
+  filter(n()>=(quantile(t$n,0.5)))
 
 dat.mod=dat.mod2 %>% group_by(read_name)%>%
-  filter(n()>=(0.75*quantile(t$n,0.75)))
+  filter(n()>=(quantile(t$n,0.5)))
   pos=max(dat.mod$position)
   
 
@@ -77,8 +77,8 @@ dat.mod=dat.mod2 %>% group_by(read_name)%>%
     ### training of unmodified 
 	svm.model=svm(tmpun_t[1:2],y=NULL,
 			   type='one-classification',
-			   nu=0.0005,
-			   gamma=0.003333,
+			   nu=9e-04,
+			   gamma=0.04,
 			   kernel="radial")
 
     ### prediction of modifications
