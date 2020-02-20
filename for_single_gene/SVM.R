@@ -43,7 +43,7 @@ dat.unmod_t=dat.unmod_t2 %>% group_by(read_name)%>%
   filter(n()>t)
 
 dat.mod=dat.mod2 %>% group_by(read_name)%>%
-  (n()>t)
+  filter(n()>t)
   pos=max(dat.mod$position)
   
 
@@ -79,8 +79,8 @@ dat.mod=dat.mod2 %>% group_by(read_name)%>%
     ### training of unmodified 
 	svm.model=svm(tmpun_t[1:2],y=NULL,
 			   type='one-classification',
-			   nu=9e-04,
-			   gamma=0.04,
+			   nu=0.001,
+			   gamma=0.0009,
 			   kernel="radial")
 
     ### prediction of modifications
