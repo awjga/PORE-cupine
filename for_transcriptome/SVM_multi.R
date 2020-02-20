@@ -28,6 +28,8 @@ if (is.null(opt$split) | is.null(opt$portion)| is.null(opt$folder))
 	print_help(opt_parser)
 	stop("Folder name must be supplied", call.=FALSE)
 }
+#### Reading of transcript length ####
+gene_size=fread("Homo_sapiens.GRCh38.cdna.all.fa.size",header=F)
 
 path_listmod=list.files(opt$mod,pattern=".RData$")
 path_listunmod=list.files(opt$unmod,pattern=".RData$")
@@ -60,18 +62,17 @@ for (i in tmpstart:tmp_end){
 	unmod.name=load(paste(opt$unmod,"/",path_listunmod[tmpun1==gene],sep=""))
 	dat.unmod_t=get(unmod.name)
 	rm(list=ls(pattern="dat.f"))
+	
+	#### filter by annotated length ####
+	dat.size=gene_size %>% filter(V1==gene_name)
+	dat.unmod_t=dat.unmod_t %>% group_by(read_name) %>% filter(n()>0.5*dat.size[,2]) %>% ungroup()
+	dat.mod=dat.mod %>% group_by(read_name) %>% filter(n()>0.5*dat.size[,2]) %>% ungroup()
 
-	t=dat.unmod_t %>% group_by(read_name) %>% summarise(n=n())
-	dat.unmod_t=dat.unmod_t %>% group_by(read_name)%>%
-		filter(n()>=(quantile(t$n,0.5)))
-
-	dat.mod=dat.mod %>% group_by(read_name)%>%
-		filter(n()>=(quantile(t$n,0.5)))
 
 	gene_name=unique(dat.mod$contig)
 
-	### filter by length
-	if(NROW(unique(dat.mod$read_name))<10)
+	#### skip transcript with too few reads ####
+	if(NROW(unique(dat.mod$read_name))<20)
 		next()
 
 	pos=max(dat.mod$position)
@@ -99,18 +100,14 @@ for (i in tmpstart:tmp_end){
 
 		if(NROW(tmpun_t)<20)
 			next()
-
 		svm.model=svm(tmpun_t[1:2],y=NULL,
-			type='one-classification',
-			nu=9e-4,
-			gamma=0.04,
-			kernel="radial")
-
-		 svm.predtest=predict(svm.model,(tmp1x[2:3]))
-
+			      type='one-classification',
+			      nu=0.001,
+			      gamma=0.0009,
+			      kernel="radial")
+		svm.predtest=predict(svm.model,(tmp1x[2:3]))
 		mod_mat[rownames(mod_mat) %in% unlist(tmp1x[,"read_name"]),(b+1)]=0
 		mod_mat[rownames(mod_mat) %in% unlist(tmp1x[!svm.predtest,"read_name"]),(b+1)]=1
-
 		nt[(b+1),]=substr(kmer,3,3)
 		unmod_mat[(b+1),]=NROW(tmpun_t)
 
