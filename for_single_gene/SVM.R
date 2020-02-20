@@ -8,6 +8,8 @@ option_list = list(
               help="unmodified RData", metavar="character"),
   make_option(c("-m", "--mod"), type="character", default=NULL,
               help="Modified RData", metavar="character"),
+	  make_option(c("-l", "--length"), type="integer", default=NULL,
+              help="Modified RData", metavar="integer"),
 make_option(c("-o", "--output"), type="character", default=NULL,
               help="output name", metavar="character"))
 
@@ -36,12 +38,12 @@ rm(list=ls(pattern="dat.f"))
 
 dat.unmod_t2[dat.unmod_t2[,"event_stdv"]==0,"event_stdv"]=0.01
 
-t=dat.unmod_t2 %>% group_by(read_name) %>% summarise(n=n())
+t=opt$length*0.5
 dat.unmod_t=dat.unmod_t2 %>% group_by(read_name)%>%
-  filter(n()>=(quantile(t$n,0.5)))
+  filter(n()>t)
 
 dat.mod=dat.mod2 %>% group_by(read_name)%>%
-  filter(n()>=(quantile(t$n,0.5)))
+  (n()>t)
   pos=max(dat.mod$position)
   
 
