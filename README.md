@@ -16,8 +16,6 @@ R (https://www.r-project.org/)
 dplyr  
 e1071  
 data.table  
-ggplot2  
-ggpubr  
 optparse  
 Rcpp  
 
