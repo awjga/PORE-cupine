@@ -2,7 +2,6 @@
 ## Chemical utilized probing interrogated using nanopores (PORE-cupine)
  Detecting SHAPE modification using direct RNA sequencing
 
-The codes in the two folders are similar.  
 For single gene is suitable for running one gene at a time.  
 For transcriptome is recommeded for running multiple genes.  
 Both will yield the same results.  
