@@ -61,5 +61,9 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 
 # Acknowledgments
 Li Chenhao for his help in getting me started and the calculation of error per strands (https://github.com/lch14forever)
-Shen Yang for his code for aligning transcript positions to genomic position and for the TRipseq analysis (https://github.com/shenyang1981) Zhang Yu for the calculation of error rates.
+
+Shen Yang for his code for aligning transcript positions to genomic position and for the TRipseq analysis (https://github.com/shenyang1981) 
+
+Zhang Yu for the calculation of error rates.
+
 For combining of standard deviations with mean, standard deviations and number of samples. Headrick, T. C. (2010). Statistical Simulation: Power Method Polynomials and other Transformations. Boca Raton, FL: Chapman & Hall/CRC.
