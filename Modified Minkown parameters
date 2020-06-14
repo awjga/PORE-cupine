@@ -1,5 +1,5 @@
-This is the changes to parameters provided from Oxford Nanopore, that was used for our methods.
-The changes allows Minknow sequencing to have a higher treshold for error and it may have a small detrimental effect on the quality of non-modified runs, as the parameters are no longer optimised for non-modified.
+These are the changes to parameters provided by Oxford Nanopore and was used during our sequencing.
+This allows Minknow sequencing to have a higher threshold for error and it may have a small detrimental effect on the quality of non-modified runs, as the parameters are no longer optimised for non-modified.
 
 
 
