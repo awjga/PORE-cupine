@@ -39,7 +39,7 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 
 ## For single genes
 ### To combine mulitple events from same position and strands
-./Read_events.R -f gene.event -o combined.RData
+./Read_events.R -f gene.event -l length_of_transcipt(a number) -o combined.RData
 
 ### To generate reacitvity
 ./SVM.R -m "modified_gene.RData" -u "unmodified_gene.RData" -o "output file names.csv"
