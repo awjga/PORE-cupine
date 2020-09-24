@@ -33,8 +33,8 @@ double sd_combine(NumericVector sd,NumericVector mean, NumericVector freq)
 		ny=freq[i];
 
 		sx=sd_c(mx,sx,nx,my,sy,ny);
-		nx=nx+ny;
 		mx=(mx*nx+my*ny)/(nx+ny);
+		nx=nx+ny;
 	}
 
 	return(sx);
@@ -57,9 +57,8 @@ double mean_combine(NumericVector mean, NumericVector freq)
 	{
 		my=mean[i];
 		ny=freq[i];
-
-		nx=nx+ny;
 		mx=(mx*nx+my*ny)/(nx+ny);
+		nx=nx+ny;
 	}
 
 	return(mx);
