@@ -41,7 +41,7 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 ### To combine mulitple events from same position and strands
 ./Read_events.R -f gene.event -l length_of_transcipt(a number) -o combined.RData
 
-### To generate reacitvity
+### To generate reactivity
 ./SVM.R -m "modified_gene.RData" -u "unmodified_gene.RData" -o "output file names.csv"
 
 ## For transcriptome
@@ -56,7 +56,7 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 ### To combine mulitple events from same position and strands
 ./loop_for_Read_files.sh "number of parts" "input folder" "output folder"
 
-### To generate reactivity profile for mulitple transcript
+### To generate reactivity profile for mulitple transcripts
 ./SVM_multi.R -s "number of parts" "RData folder containing modified samples" "RData folder containing unmodified samples" "Output folder"
 
 ## To calcuate error rates in bam files
