@@ -57,7 +57,7 @@ nanopolish eventalign  --reads converted.fastq --bam gene.s.bam --genome "refere
 ./loop_for_Read_files.sh "number of parts" "input folder" "output folder"
 
 ### To generate reactivity profile for mulitple transcripts
-./SVM_multi.R -s "number of parts" "RData folder containing modified samples" "RData folder containing unmodified samples" "Output folder"
+./loop_SVM.sh -s "number of parts" "RData folder containing modified samples" "RData folder containing unmodified samples" "Output folder"
 
 ## To calcuate error rates in bam files
 File found in Error_rates are used to calcuate the error rates of mismatch, deletion and insertion per position.
