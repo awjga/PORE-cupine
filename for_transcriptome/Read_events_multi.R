@@ -3,6 +3,7 @@
 suppressMessages(library(optparse))
 suppressMessages(library(dplyr))
 suppressMessages(library(Rcpp))
+suppressMessages(library(data.table))
 
 
 
@@ -39,7 +40,8 @@ tmp_split=round(length(path_list)/opt$split,0)
 ### assigning parts to run
 tmpstart=1+(tmp_split*(opt$portion-1))
 tmp_end=tmp_split*(opt$portion)
-
+### reading header file 
+header=fread(paste(opt$input,"/header",sep=""))
 if(opt$split==opt$portion)
 tmp_end=length(path_list)
 
@@ -48,7 +50,8 @@ dir.create(opt$output)
 
 for (i in tmpstart:tmp_end)
 {
-  dat=as_tibble(read.csv(paste(opt$input,"/",path_list[i],sep="")))
+  dat=as_tibble(fread(paste(opt$input,"/",path_list[i],sep="")))
+  colnames(dat)=colnames(header)
 
 #combine events of same strands and positions
   tmp_dat=dat %>%  
